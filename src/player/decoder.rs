@@ -192,6 +192,7 @@ impl Source for Symphonia {
             Ok(seeked_to) => {
                 let base = TimeBase::new(1, self.sample_rate());
                 let time = base.calc_time(seeked_to.actual_ts);
+                self.elapsed = Duration::from_secs_f64(time.seconds as f64 + time.frac);
 
                 Some(Duration::from_millis(
                     time.seconds * 1000 + ((time.frac * 60. * 1000.).round() as u64),

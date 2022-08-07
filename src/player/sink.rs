@@ -106,7 +106,7 @@ impl Sink {
                     as i64;
                 tx.send(PlayerMsg::Progress(position, duration)).ok();
             })
-            .periodic_access(Duration::from_millis(50), move |src| {
+            .periodic_access(Duration::from_millis(1), move |src| {
                 let mut src = src.inner_mut();
                 if controls.stopped.load(Ordering::SeqCst) {
                     src.stop();
