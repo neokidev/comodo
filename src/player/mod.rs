@@ -256,12 +256,13 @@ impl PlayerTrait for Player {
     }
 
     fn seek(&mut self, secs: i64) -> Result<()> {
-        if secs.is_positive() {
-            self.seek_fw();
-            return Ok(());
-        }
+        // if secs.is_positive() {
+        //     self.seek_fw();
+        //     return Ok(());
+        // }
 
-        self.seek_bw();
+        // self.seek_bw();
+        self.seek_to(Duration::from_secs(secs as u64));
         Ok(())
     }
 
