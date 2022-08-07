@@ -150,7 +150,7 @@ impl Player {
         duration
     }
 
-    pub fn play(&mut self, current_item: &str) {
+    fn play(&mut self, current_item: &str) {
         self.enqueue(current_item);
     }
 
