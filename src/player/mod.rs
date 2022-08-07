@@ -69,6 +69,7 @@ pub trait PlayerTrait {
     fn volume_up(&mut self);
     fn volume_down(&mut self);
     fn set_volume(&mut self, volume: i32);
+    fn elapsed(&self) -> Duration;
     fn pause(&mut self);
     fn resume(&mut self);
     fn is_paused(&self) -> bool;
@@ -236,6 +237,10 @@ impl PlayerTrait for Player {
         }
         self.volume = volume as u16;
         self.sink.set_volume(f32::from(self.volume) / 100.0);
+    }
+
+    fn elapsed(&self) -> Duration {
+        self.elapsed()
     }
 
     fn pause(&mut self) {
