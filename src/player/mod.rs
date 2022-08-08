@@ -153,7 +153,17 @@ impl Player {
     }
 
     fn play(&mut self, current_item: &str) {
-        self.enqueue(current_item);
+        let p1 = Path::new(current_item);
+        if let Ok(file) = File::open(p1) {
+            match Symphonia::new(file, self.gapless) {
+                Ok(decoder) => {
+                    self.stop();
+                    self.total_duration = decoder.total_duration();
+                    self.sink.append(decoder);
+                }
+                Err(e) => eprintln!("error is: {:?}", e),
+            }
+        };
     }
 
     fn stop(&mut self) {
