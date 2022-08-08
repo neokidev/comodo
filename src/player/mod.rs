@@ -70,6 +70,7 @@ pub trait PlayerTrait {
     fn volume_down(&mut self);
     fn set_volume(&mut self, volume: i32);
     fn elapsed(&self) -> Duration;
+    fn duration(&self) -> Option<f64>;
     fn pause(&mut self);
     fn resume(&mut self);
     fn is_paused(&self) -> bool;
@@ -163,8 +164,7 @@ impl Player {
         self.sink.elapsed()
     }
     fn duration(&self) -> Option<f64> {
-        self.total_duration
-            .map(|duration| duration.as_secs_f64() - 0.29)
+        self.total_duration.map(|duration| duration.as_secs_f64())
     }
 
     fn seek_fw(&mut self) {
@@ -241,6 +241,10 @@ impl PlayerTrait for Player {
 
     fn elapsed(&self) -> Duration {
         self.elapsed()
+    }
+
+    fn duration(&self) -> Option<f64> {
+        self.duration()
     }
 
     fn pause(&mut self) {
