@@ -50,7 +50,7 @@ pub use stream::{OutputStream, OutputStreamHandle, PlayError, StreamError};
 use anyhow::Result;
 use std::fs::File;
 use std::path::Path;
-use std::sync::mpsc::Sender;
+use std::sync::mpsc::{self, Sender};
 use std::time::Duration;
 
 static VOLUME_STEP: u16 = 5;
@@ -95,7 +95,8 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(tx: Sender<PlayerMsg>) -> Self {
+    pub fn new() -> Self {
+        let (tx, _): (Sender<PlayerMsg>, _) = mpsc::channel();
         let (stream, handle) = OutputStream::try_default().unwrap();
         // let gapless = config.gapless;
         let gapless = true;
