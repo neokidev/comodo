@@ -19,8 +19,8 @@ pub fn App(cx: Scope) -> Element {
             },
 
             Icon {
-                width: 50,
-                height: 50,
+                width: 40,
+                height: 40,
                 fill: "white",
                 icon: IoPauseSharp,
             }
@@ -32,8 +32,8 @@ pub fn App(cx: Scope) -> Element {
             },
 
             Icon {
-                width: 50,
-                height: 50,
+                width: 40,
+                height: 40,
                 fill: "white",
                 icon: IoPlaySharp,
             }
