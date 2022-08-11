@@ -220,6 +220,10 @@ impl Player {
     }
 }
 
+pub fn try_open() -> impl PlayerTrait {
+    Player::new()
+}
+
 impl PlayerTrait for Player {
     fn add_and_play(&mut self, current_track: &str) {
         self.play(current_track);

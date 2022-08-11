@@ -4,12 +4,12 @@ use dioxus_free_icons::Icon;
 
 extern crate anyhow;
 extern crate cpal;
-use crate::player::{Player, PlayerTrait};
+use crate::player::{self, PlayerTrait};
 
 #[allow(non_snake_case)]
 pub fn App(cx: Scope) -> Element {
     let is_playing = use_state(&cx, || true);
-    let player = use_ref(&cx, Player::new);
+    let player = use_ref(&cx, player::try_open);
 
     let play_and_pause_button = match is_playing.current().as_ref() {
         true => rsx!(button {
