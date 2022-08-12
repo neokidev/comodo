@@ -11,3 +11,4 @@ cpal = "0.13.5"
 dioxus = { version = "0.2.4", features = ["desktop"] }
 dioxus-free-icons = { version = "0.5.0", features = ["ionicons"] }
 symphonia = "0.5.1"
+tokio = { version = "1.20.1", features = ["time"] }

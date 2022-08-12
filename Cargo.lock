@@ -302,6 +302,7 @@ dependencies = [
  "dioxus",
  "dioxus-free-icons",
  "symphonia",
+ "tokio",
 ]
 
 [[package]]
