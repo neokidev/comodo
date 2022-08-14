@@ -9,6 +9,12 @@ extern crate anyhow;
 extern crate cpal;
 use crate::player::{self, PlayerTrait};
 
+fn formatTime(time: u64) -> String {
+    let min = time / 60;
+    let sec = time % 60;
+    format!("{}:{:02}", min, sec)
+}
+
 #[allow(non_snake_case)]
 pub fn App(cx: Scope) -> Element {
     let is_playing = use_state(&cx, || true);
@@ -50,8 +56,8 @@ pub fn App(cx: Scope) -> Element {
             .add_and_play("./examples/square_120bpm_4bars_16bit_44100hz.wav");
     });
 
-    let elapsed_format = use_state(&cx, || "0:00");
-    let duration_format = use_state(&cx, || "0:00");
+    let elapsed_format = use_state(&cx, || "0:00".to_string());
+    let duration_format = use_state(&cx, || "0:00".to_string());
     let progress = use_state(&cx, || 0.);
     
     use_future(&cx, (interval, player, elapsed_format, duration_format, progress), |(interval, player, elapsed_format, duration_format, progress)| async move {
@@ -59,13 +65,11 @@ pub fn App(cx: Scope) -> Element {
             interval.write_silent().tick().await;
             let elapsed = player.read().elapsed().as_secs();
             let duration = player.read().duration().unwrap() as u64;
-            elapsed_format.set("0:00");
-            duration_format.set("0:00");
+            elapsed_format.set(formatTime(elapsed));
+            duration_format.set(formatTime(duration));
             progress.set(elapsed as f64 / duration as f64 * 100.);
         }
     });
-
-
     
     cx.render(rsx!(
         link { href: "/src/style.css", rel: "stylesheet" }
