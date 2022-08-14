@@ -9,7 +9,7 @@ extern crate anyhow;
 extern crate cpal;
 use crate::player::{self, PlayerTrait};
 
-fn formatTime(time: u64) -> String {
+fn format_time(time: u64) -> String {
     let min = time / 60;
     let sec = time % 60;
     format!("{}:{:02}", min, sec)
@@ -65,8 +65,8 @@ pub fn App(cx: Scope) -> Element {
             interval.write_silent().tick().await;
             let elapsed = player.read().elapsed().as_secs();
             let duration = player.read().duration().unwrap() as u64;
-            elapsed_format.set(formatTime(elapsed));
-            duration_format.set(formatTime(duration));
+            elapsed_format.set(format_time(elapsed));
+            duration_format.set(format_time(duration));
             progress.set(elapsed as f64 / duration as f64 * 100.);
         }
     });
