@@ -1,5 +1,6 @@
 use std::time::Duration;
 
+use dioxus::desktop::use_window;
 use dioxus::prelude::*;
 use dioxus_free_icons::icons::io_icons::{IoPauseSharp, IoPlaySharp};
 use dioxus_free_icons::Icon;
@@ -20,6 +21,8 @@ pub fn App(cx: Scope) -> Element {
     let is_playing = use_state(&cx, || true);
     let player = use_ref(&cx, player::try_open);
     let interval = use_ref(&cx, || time::interval(Duration::from_millis(1)));
+
+    let window = use_window(&cx);
 
     let play_and_pause_button = match is_playing.current().as_ref() {
         true => rsx!(button {
@@ -115,6 +118,21 @@ pub fn App(cx: Scope) -> Element {
             div {
                 class: "flex mt-2",
                 play_and_pause_button
+            }
+
+            div {
+                class: "w-full px-4 flex justify-end",
+
+                button {
+                    onclick: move |_| window.devtool(),
+
+                    Icon {
+                        width: 20,
+                        height: 20,
+                        fill: "gray",
+                        icon: IoBug,
+                    }
+                }
             }
         }
     ))
