@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use dioxus::desktop::use_window;
 use dioxus::prelude::*;
-use dioxus_free_icons::icons::io_icons::{IoPauseSharp, IoPlaySharp};
+use dioxus_free_icons::icons::io_icons::{IoPauseSharp, IoPlaySharp, IoBug};
 use dioxus_free_icons::Icon;
 use tokio::time;
 
